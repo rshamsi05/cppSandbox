@@ -21,13 +21,13 @@
 
 
 ### Example Usecase
-Java code for showcase as I dont know how this would look like in c++.
-```Java
-LinearProbedMap<Integer, String> map = new LinearProbedMap<>();
+C++ code usage example:
+```cpp
+LinearProbedMap<int, std::string> map;
 map.insert(0, "Value1");
 map.insert(1, "Value2");
-map.get(1); // will return Value2
-map.delete(0); // will remove <0,"Value1"> pair from the table.
+std::string val = map.get(1); // will return "Value2"
+map.remove(0); // will remove <0, "Value1"> pair from the table.
 ```
 
 
