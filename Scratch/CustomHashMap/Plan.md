@@ -31,7 +31,7 @@ Before implementing, keep these critical C++ concepts and edge cases in mind:
 
 ## 🏗️ Step-by-Step Implementation Roadmap
 
-### Step 1: Define Bucket State & Node Structure
+### Step 1: Define Bucket State & Node Structure[FINISHED]
 - Create an `enum class SlotState`:
   - `EMPTY`: Slot was never used.
   - `OCCUPIED`: Slot currently holds a valid key-value pair.
