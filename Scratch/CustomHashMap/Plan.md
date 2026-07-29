@@ -41,14 +41,14 @@ Before implementing, keep these critical C++ concepts and edge cases in mind:
   - `V value`
   - `SlotState state = SlotState::EMPTY`
 
-### Step 2: Define Map Class & Data Members
+### Step 2: Define Map Class & Data Members[FINISHED]
 - Declare template class `LinearProbedMap<typename K, typename V>`:
   - `std::vector<HashNode<K, V>> table`
   - `size_t capacity` (initial default = `16`)
   - `size_t num_elements` (count of `OCCUPIED` slots)
   - `float max_load_factor` (default = `0.7f`)
 
-### Step 3: Hash Calculation Helper
+### Step 3: Hash Calculation Helper[FINISHED]
 - Private helper function `size_t getIndex(const K& key, size_t cap) const`:
   - Compute `std::hash<K>{}(key) % cap`.
 

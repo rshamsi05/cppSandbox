@@ -2,6 +2,7 @@
 #define LINEAR_PROBED_MAP_HPP
 
 #include <functional>
+#include <optional>
 #include <vector>
 #include "state_node.hpp"
 
@@ -31,10 +32,77 @@ class LinearProbedMap {
             table.resize(capacity);
         }
     
-    // Private helper method that computes the hashcode for the key
+    // Private helper method that computes the index based on the hash function: n%size
     private:
         size_t getIndex(const K& key, size_t cap) const {
             return std::hash<K>{}(key) % cap;
+        }
+
+        void resize(size_t new_capacity) {
+            // logic to resize the table
+        }
+    
+
+    public:
+        void insert(const K& key, const V& value){
+            if((float)(num_elements + 1) / capacity > max_load_factor){
+                //resize
+                resize(capacity * 2);
+            }
+            size_t startIndex = getIndex(key, capacity);
+            size_t target_index = startIndex;
+            int tombstone = -1;
+            for(size_t i = 0; i < capacity; ++i) {
+                size_t currIndex = (startIndex + i) % capacity;
+                // case where state is EMPTY
+                if(table[currIndex].state == SlotState::EMPTY){
+                    // empty slot found for our data, so we can exit loop
+                    target_index = currIndex;
+                    break;
+                }
+                // case where state is OCCUPIED
+                if(table[currIndex].state == SlotState::OCCUPIED){
+                    // checks if we are updating an existing key in the map, otherwise we continue to next slot
+                    if(table[currIndex].key == key){
+                        table[currIndex].value = value;
+                    }
+                }
+                // case where state is DELETED
+                if(table[currIndex].state == SlotState::DELETED){
+                    // finds the first deleted slot so that we can use it to save the key value pair to.
+                    if(tombstone == -1){
+                        tombstone = currIndex;
+                    }
+                }
+            }
+
+            /*
+             When placing the key value pair inside a slot, we first prioritize the tombstone(DELETED) slot before an empty one
+            */
+            
+            // if tombstone was found, then we update the tombstone slot to be the new key value pair
+            if(tombstone != -1){
+                table[tombstone].key = key;
+                table[tombstone].value = value;
+                num_elements++;
+                table[tombstone].state = SlotState::OCCUPIED;
+            
+            } // else we just use the empty slot to place our key value pair into
+            else{
+                table[target_index].key = key;
+                table[target_index].value = value;
+                num_elements++;
+                table[target_index].state = SlotState::OCCUPIED;
+            }
+            
+        }
+   
+        std::optional<V> get(const K& key) const {
+            
+        }
+    
+        bool remove(const K& key) {
+
         }
 
 };
