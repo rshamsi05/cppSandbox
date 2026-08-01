@@ -52,7 +52,7 @@ Before implementing, keep these critical C++ concepts and edge cases in mind:
 - Private helper function `size_t getIndex(const K& key, size_t cap) const`:
   - Compute `std::hash<K>{}(key) % cap`.
 
-### Step 4: Core Operations Implementation
+### Step 4: Core Operations Implementation[FINISHED]
 
 #### 1. `insert(const K& key, const V& value)`
 1. Check load factor: `if ((float)(num_elements + 1) / capacity > max_load_factor) rehash(capacity * 2);`
@@ -77,7 +77,7 @@ Before implementing, keep these critical C++ concepts and edge cases in mind:
    - If slot is `EMPTY` $\rightarrow$ key not found, return `false`.
    - If slot is `DELETED` $\rightarrow$ continue probing.
 
-### Step 5: Dynamic Rehashing & Capacity Management
+### Step 5: Dynamic Rehashing & Capacity Management[FINISHED]
 - `rehash(size_t new_capacity)`:
   1. Allocate new table of size `new_capacity`.
   2. Reset `num_elements = 0`.
