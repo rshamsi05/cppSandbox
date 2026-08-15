@@ -25,7 +25,7 @@ class LinearProbedMap {
         float max_load_factor;
 
     public:
-        LinearProbedMap(size_t init_capacity = 16, float max_lf = 0.7f)
+        explicit LinearProbedMap(size_t init_capacity = 16, float max_lf = 0.7f)
             // Member variables initialized in memory
             : capacity(init_capacity), num_elements(0), max_load_factor(max_lf)
         {
